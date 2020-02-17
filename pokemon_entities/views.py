@@ -61,6 +61,7 @@ def show_pokemon(request, pokemon_id):
     requested_pokemons_entities = PokemonEntity.objects.filter(pokemon = requested_pokemon)
     pokemon_absolute_url = request.build_absolute_uri(requested_pokemon.image.url)
 
+
     for pokemon_entity in requested_pokemons_entities:
 
         add_pokemon(
@@ -75,6 +76,16 @@ def show_pokemon(request, pokemon_id):
         "description": requested_pokemon.description,
         "img_url": pokemon_absolute_url,
     }
+
+    if requested_pokemon.previous_evolution:
+
+        previous_evolution_absolute_url = request.build_absolute_uri(requested_pokemon.previous_evolution.image.url)
+        pokemon["previous_evolution"] = {
+                "title_ru": requested_pokemon.previous_evolution.title,
+                "pokemon_id": requested_pokemon.previous_evolution.id,
+                "img_url": previous_evolution_absolute_url,
+            }
+
 
 
     return render(request, "pokemon.html", context={'map': folium_map._repr_html_(),
