@@ -33,7 +33,7 @@ def show_all_pokemons(request):
     pokemons_on_page = []
     pokemons = Pokemon.objects.all()
     for pokemon in pokemons:
-        pokemon_image_url = None #TODO: Optimize it
+        pokemon_image_url = None #TODO: Just ask me to optimize it!
         if pokemon.image:
             pokemon_image_url = pokemon.image.url
 
