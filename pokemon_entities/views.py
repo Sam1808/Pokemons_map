@@ -77,21 +77,21 @@ def show_pokemon(request, pokemon_id):
         "img_url": pokemon_absolute_url,
     }
 
-    if requested_pokemon.previous_evolution:
-        previous_evolution_absolute_url = request.build_absolute_uri(requested_pokemon.previous_evolution.image.url)
+    if requested_pokemon.previous_evolutions:
+        previous_evolutions_absolute_url = request.build_absolute_uri(requested_pokemon.previous_evolutions.image.url)
         pokemon["previous_evolution"] = {
-                "title_ru": requested_pokemon.previous_evolution.title,
-                "pokemon_id": requested_pokemon.previous_evolution.id,
-                "img_url": previous_evolution_absolute_url,
+                "title_ru": requested_pokemon.previous_evolutions.title,
+                "pokemon_id": requested_pokemon.previous_evolutions.id,
+                "img_url": previous_evolutions_absolute_url,
             }
 
-    if requested_pokemon.next_evolution.all():
-        next_evolution = requested_pokemon.next_evolution.all()[0]
-        next_evolution_absolute_url = request.build_absolute_uri(next_evolution.image.url)
+    if requested_pokemon.next_evolutions.all():
+        next_evolutions = requested_pokemon.next_evolutions.all()[0]
+        next_evolutions_absolute_url = request.build_absolute_uri(next_evolutions.image.url)
         pokemon["next_evolution"]={
-            "title_ru": next_evolution.title,
-            "pokemon_id": next_evolution.id,
-            "img_url": next_evolution_absolute_url,
+            "title_ru": next_evolutions.title,
+            "pokemon_id": next_evolutions.id,
+            "img_url": next_evolutions_absolute_url,
         }
 
     return render(request, "pokemon.html", context={'map': folium_map._repr_html_(),

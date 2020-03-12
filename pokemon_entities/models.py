@@ -6,12 +6,12 @@ class Pokemon(models.Model):
     title_en = models.CharField(max_length=200, blank=True, verbose_name='Название (анг.)')
     title_jp = models.CharField(max_length=200, blank=True, verbose_name='Название (яп.)')
     description = models.TextField(blank=True, verbose_name='Описание')
-    previous_evolution = models.ForeignKey('self',
+    previous_evolutions = models.ForeignKey('self',
                                            null=True,
                                            blank=True,
                                            on_delete=models.SET_NULL,
-                                           related_name='next_evolution',
-                                           verbose_name='Эволюция')
+                                           related_name='next_evolutions',
+                                           verbose_name='Эволюции')
 
 
 
