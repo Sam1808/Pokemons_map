@@ -1,8 +1,7 @@
 import folium
-import json
 
 from django.http import HttpResponseNotFound
-from django.shortcuts import render
+from django.shortcuts import get_object_or_404, render
 from pokemon_entities.models import Pokemon, PokemonEntity
 
 MOSCOW_CENTER = [55.751244, 37.618423]
@@ -52,9 +51,9 @@ def show_all_pokemons(request):
 def show_pokemon(request, pokemon_id):
 
     try:
-        requested_pokemon = Pokemon.objects.filter(id=pokemon_id)[0]
-    except IndexError:
-        return HttpResponseNotFound('<h1>Такой покемон не найден</h1>')
+        requested_pokemon = get_object_or_404(Pokemon, id=pokemon_id)
+    except Pokemon.MultipleObjectsReturned:
+        return HttpResponseNotFound('<h1>Exception.More than one object is found.</h1>')
 
     folium_map = folium.Map(location=MOSCOW_CENTER, zoom_start=12)
 
